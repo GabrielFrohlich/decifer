@@ -1,5 +1,5 @@
 import csv
-import os
+from itertools import permutations
 
 alpha = "abcdefghijklmnopqrstuvwxyz"
 file = open('palavras.csv', 'r', encoding="UTF-8")
@@ -21,8 +21,41 @@ def caesar():
         if decrypted in words:
             print("Possível resultado: {} | Chave: {}".format(decrypted, char_index))
 
+def decifra_vigenere(key, enc):
+    final = ""
+    for index in range(0,len(enc)):
+        # print("Key: {} Enc:".format(key, enc))
+        # print(enc[index], key[index])
+        # print((alpha.index(enc[index]), alpha.index(key[index])))
+        final += alpha[((alpha.index(enc[index]) - alpha.index(key[index])) + 26)%26]
+
+    if final in words:
+        print("Chave possível: {} Decifrado: {}".format(key, final))
+        return final
+    else:
+        return 0
+
 def vigenere():
-    print("Vigenere")
+    encrypted = input("Digite a palavra codificada: ")
+    finded= 0
+    
+    for rnd_tpl in permutations(alpha, 3):
+        rnd_str = ''.join(rnd_tpl)
+        
+        key = ""
+
+        for enc_part in range(0, (len(encrypted)//3)+1):
+            key += rnd_str
+        
+        key = "{s:.{size}}".format(s=key, size=len(encrypted))
+        result = decifra_vigenere(key, encrypted)
+
+        if result != 0:
+            finded += 1
+
+    if finded == 0:
+        print("Não foram encontradas chaves compatíveis com o texto inserido.")
+
 
 
 
