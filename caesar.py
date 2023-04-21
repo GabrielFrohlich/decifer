@@ -24,13 +24,10 @@ def caesar():
 def decifra_vigenere(key, enc):
     final = ""
     for index in range(0,len(enc)):
-        # print("Key: {} Enc:".format(key, enc))
-        # print(enc[index], key[index])
-        # print((alpha.index(enc[index]), alpha.index(key[index])))
         final += alpha[((alpha.index(enc[index]) - alpha.index(key[index])) + 26)%26]
 
     if final in words:
-        print("Chave possível: {} Decifrado: {}".format(key, final))
+        print("Chave possível: {} Decifrado: {}".format(key[0:3], final))
         return final
     else:
         return 0
@@ -48,6 +45,8 @@ def vigenere():
             key += rnd_str
         
         key = "{s:.{size}}".format(s=key, size=len(encrypted))
+        if('key' in key):
+            print(key)
         result = decifra_vigenere(key, encrypted)
 
         if result != 0:
