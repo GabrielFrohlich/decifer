@@ -45,8 +45,6 @@ def vigenere():
             key += rnd_str
         
         key = "{s:.{size}}".format(s=key, size=len(encrypted))
-        if('key' in key):
-            print(key)
         result = decifra_vigenere(key, encrypted)
 
         if result != 0:
